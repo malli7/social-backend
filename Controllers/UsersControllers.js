@@ -151,7 +151,8 @@ export const followingDetails = async (req, res) => {
     let followingdetails = []
     await Promise.all(user.following.map(async (item) => {
         const user = await User.findById(item);
-        followingdetails = [...followingdetails, user]
+        followingdetails = [...followingdetails, user];
+        followingdetails.sort();
     }));
     res.status(200).json(followingdetails)
 }

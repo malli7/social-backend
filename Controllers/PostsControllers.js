@@ -1,3 +1,4 @@
+import Message from '../Models/Message.js';
 import Post from '../Models/Post.js';
 import User from '../Models/User.js';
 
@@ -103,4 +104,35 @@ export const deletePost = async (req, res) => {
     } catch (error) {
         return res.status(409).json({ error });
     }
+}
+
+
+export const sendMessage = async (req, res) => {
+    const { from, to, message } = req.body;
+    const newMessage = await Message.create({
+        message: message,
+        chatUsers: [from, to],
+        sender: from
+    })
+
+    res.status(200).json(newMessage);
+}
+
+export const getChat = async (req, res) => {
+    const from = req.params.userid1;
+    const to = req.params.userid2;
+    const messages = await Message.find({
+        chatUsers: {
+            $all: [from, to],
+        }
+    });
+
+    const allmessages = messages.map((msg) => {
+        return {
+            myself: msg.sender.toString() === from,
+            message: msg.message
+        }
+    })
+
+    res.status(200).json(allmessages);
 }
