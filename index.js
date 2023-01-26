@@ -30,7 +30,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
     cors: {
-        origin: "http://social-id7k.onrender.com",
+        origin: "https://social-id7k.onrender.com",
         Credentials: true
     }
 })
