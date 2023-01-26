@@ -6,6 +6,7 @@ import Posts from './Routes/Posts.js';
 import { Server } from "socket.io";
 
 
+
 const PORT = process.env.PORT || 5000;
 const mongoURI = process.env.URL;
 const app = express();
@@ -29,7 +30,7 @@ const server = app.listen(PORT, () => {
 
 const io = new Server(server, {
     cors: {
-        origin: "https://social-id7k.onrender.com/",
+        origin: "http://social-id7k.onrender.com",
         Credentials: true
     }
 })
